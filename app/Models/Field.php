@@ -26,6 +26,7 @@ class Field extends Model
 
     public function subscribers(): BelongsToMany
     {
-        return $this->belongsToMany(Subscriber::class, SubscriberField::class);
+        return $this->belongsToMany(Subscriber::class, 'subscriber_fields')
+            ->withPivot('value');
     }
 }

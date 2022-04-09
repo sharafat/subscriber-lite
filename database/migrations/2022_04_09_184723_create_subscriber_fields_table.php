@@ -8,13 +8,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('subscriber_fields', static function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('subscriber_id');
             $table->unsignedBigInteger('field_id');
             $table->string('value');
-            $table->timestamps();
             $table->foreign('subscriber_id')->references('id')->on('subscribers')->onDelete('cascade');
             $table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade');
+            $table->unique(['subscriber_id', 'field_id', 'value']);
         });
     }
 
