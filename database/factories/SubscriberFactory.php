@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Field;
 use App\Models\Subscriber;
 use Database\Seeders\FieldSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,9 +19,16 @@ class SubscriberFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->email(),
+            'email' => $this->faker->unique()->freeEmail(),
             'state' => $this->faker->randomElement(Subscriber::STATES),
         ];
+    }
+
+    public function withFields(): static
+    {
+        Field::factory()->count(FieldSeeder::FieldSeedCount)->create();
+
+        return $this->state(fn(array $attributes) => []);
     }
 
     public function configure(): self
