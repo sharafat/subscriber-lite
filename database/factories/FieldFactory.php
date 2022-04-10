@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Field;
+use Database\Seeders\FieldSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -24,9 +25,9 @@ class FieldFactory extends Factory
 
     public function createWithValues(): Collection
     {
-        return Field::factory()->count(5)->create()->map(
+        return Field::factory()->count(FieldSeeder::FieldSeedCount)->create()->map(
             function (Field $field) {
-                $field->value = $this->faker->sentence();
+                $field->value = $field->generateFakeValue($this->faker);
 
                 return $field;
             }

@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\Field;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use function __;
 
 class SaveFieldRequest extends FormRequest
 {

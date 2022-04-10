@@ -42,8 +42,11 @@ class SubscriberFactory extends Factory
 
     private function seedRandomFieldsForSubscriber(Subscriber $subscriber): void
     {
-        for ($fieldCount = 1; $fieldCount < random_int(1, FieldSeeder::FieldSeedCount); $fieldCount++) {
-            $subscriber->fields()->attach($fieldCount, ['value' => $this->faker->sentence(3)]);
+        for ($fieldId = 1; $fieldId < random_int(1, FieldSeeder::FieldSeedCount); $fieldId++) {
+            $subscriber->fields()->attach(
+                $fieldId,
+                ['value' => Field::find($fieldId)->generateFakeValue($this->faker)]
+            );
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,5 +29,15 @@ class Field extends Model
     {
         return $this->belongsToMany(Subscriber::class, 'subscriber_fields')
             ->withPivot('value');
+    }
+
+    public function generateFakeValue(Generator $faker): string
+    {
+        return (string) match ($this->type) {
+            self::TYPE_NUMBER => $faker->randomDigit(),
+            self::TYPE_DATE => $faker->date(),
+            self::TYPE_BOOLEAN => $faker->boolean() ? 'true' : 'false',
+            default => $faker->sentence(3),
+        };
     }
 }

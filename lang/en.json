@@ -12,5 +12,10 @@
     "Type": "Type",
     "Field Title": "Field Title",
     "Field Type": "Field Type",
-    "Field Value": "Field Value"
+    "Field Value": "Field Value",
+
+    "Value must be a date.": "Value must be a date.",
+    "Value must be a number.": "Value must be a number.",
+    "Value must be a boolean.": "Value must be a boolean.",
+    "Length cannot be greater than :maxlength.": "Length cannot be greater than :maxlength."
 }

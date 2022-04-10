@@ -55,10 +55,25 @@ class SubscriberTest extends TestCase
 
         $response->assertUnprocessable()
             ->assertJson(
-                fn(AssertableJson $json) => $json->has('errors', 1)
+                fn(AssertableJson $json) => $json->has('errors')
                     ->has('errors.email')
                     ->etc()
             );
+    }
+
+    public function testSubscriberCreationFailsIfFieldValueDoesNotConformToFieldType(): void
+    {
+        $subscriber = Subscriber::factory()->make();
+        $field = Field::factory()->create(['title' => 'Title', 'type' => Field::TYPE_NUMBER]);
+        $field->value = 'TEXT';
+
+        $response = $this->postJson(
+            route('api.subscribers.store'),
+            $this->getSubscriberTransformer($subscriber, collect([$field]))->toArray()
+        );
+
+        $response->assertUnprocessable()
+            ->assertJson(fn(AssertableJson $json) => $json->has('errors')->etc());
     }
 
     public function testSubscriberShowsCorrectly(): void
