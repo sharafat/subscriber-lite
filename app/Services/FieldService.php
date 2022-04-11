@@ -7,10 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FieldService
 {
-    public function list(string $orderBy = 'id desc'): LengthAwarePaginator
+    public function list(int $perPage = 10, string $orderBy = 'id desc'): LengthAwarePaginator
     {
         return Field::orderByRaw(!empty($orderBy) ? $orderBy : 'id desc')
-            ->paginate()
+            ->paginate($perPage)
             ->withQueryString();
     }
 

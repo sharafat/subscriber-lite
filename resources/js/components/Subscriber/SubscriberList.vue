@@ -30,6 +30,9 @@
                 Email
             </table-head>
             <table-head v-for="customField in customFieldNames">{{ customField }}</table-head>
+            <table-head>
+                Actions
+            </table-head>
         </template>
 
         <template #tbody="{row}">
@@ -43,6 +46,16 @@
             <table-body v-text="row.email"/>
             <table-body v-for="customFieldName in customFieldNames"
                         v-html="renderCustomField(row, customFieldName)"/>
+            <table-body>
+                <button class="btn-icon btn-icon-primary"
+                        @click="navigateToEditPage(row.id)">
+                    <i class="fa-solid fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-icon-danger ml-3"
+                        @click="destroy(row.id, row.name)">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </table-body>
         </template>
     </data-table>
 </template>
@@ -63,6 +76,14 @@ export default {
             type: String,
             required: true,
         },
+        subscriberDeleteApi: {
+            type: String,
+            required: true,
+        },
+        subscriberEditPageUrl: {
+            type: String,
+            required: true,
+        },
     },
     setup(props) {
         const tableData = ref([])
@@ -76,7 +97,7 @@ export default {
         const loadData = async (query) => {
             isLoading.value = true
 
-            queries.value = { ...query }
+            queries.value = {...query}
 
             const {data: {data, total}} = await axios.get(props.subscriberListApi, {
                 params: {
@@ -120,12 +141,42 @@ export default {
             }
 
             if (field.type === 'boolean') {
-                const icon = field.value === 'true' ? 'fa-circle-check text-green-400' : 'fa-circle-xmark text-red-400'
+                const icon = [true, 'true', 1, '1'].includes(field.value)
+                    ? 'fa-circle-check text-green-400'
+                    : 'fa-circle-xmark text-red-400'
 
-                return `<i class="fa-solid ${icon}"></i>`
+                return `<i class="fa-solid fa-xl ${icon}"></i>`
             }
 
             return field.value
+        }
+
+        const navigateToEditPage = id => {
+            window.location = props.subscriberEditPageUrl.replace('0', id)
+        }
+
+        const destroy = (id, name) => {
+            Swal.fire(
+                {
+                    title: "Delete subscriber?",
+                    text: `Are you sure you want to delete the subscriber "${name}"? This action cannot be undone.`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f2353c",
+                    confirmButtonText: "Delete",
+                    showLoaderOnConfirm: true,
+                    backdrop: true,
+                    allowOutsideClick: () => !Swal.isLoading(),
+                    preConfirm: () =>
+                        axios.delete(props.subscriberDeleteApi.replace('0', id))
+                            .catch(() => window.Swal.fire('Submission Failed', 'Unknown server error.', 'error'))
+                }
+            ).then(async result => {
+                if (result.value) {
+                    await Swal.fire('Deleted!', '', 'success');
+                    window.location.reload()
+                }
+            });
         }
 
         return {
@@ -136,14 +187,16 @@ export default {
             isLoading,
             loadData,
             badgeColor,
-            renderCustomField
+            renderCustomField,
+            navigateToEditPage,
+            destroy,
         }
     }
 }
 </script>
 
 <style scoped>
-    .state::first-letter {
-        text-transform: capitalize;
-    }
+.state::first-letter {
+    text-transform: capitalize;
+}
 </style>

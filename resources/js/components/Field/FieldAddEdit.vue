@@ -104,7 +104,7 @@ export default {
                             type: 'type' in errorData ? errorData.type[0] : null,
                         }
 
-                        return
+                        window.Swal.fire('', 'Please correct the errors specified on the form.', 'error')
                     }
                 }
 

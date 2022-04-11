@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Transformers\FieldTransformer;
 use App\Models\Field;
 use Illuminate\Contracts\View\View;
 
@@ -19,6 +20,6 @@ class FieldController extends Controller
 
     public function edit(Field $field): View
     {
-        return view('fields.create_edit', ['field' => $field]);
+        return view('fields.create_edit', ['field' => FieldTransformer::fromModel($field)]);
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Transformers\SubscriberTransformer;
+use App\Http\Requests\ListRequest;
 use App\Http\Requests\SaveSubscriberRequest;
+use App\Http\Transformers\SubscriberTransformer;
 use App\Models\Subscriber;
 use App\Services\SubscriberService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Log;
 
 class SubscriberApiController extends Controller
@@ -20,9 +20,12 @@ class SubscriberApiController extends Controller
         $this->subscriberService = $subscriberService;
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(ListRequest $request): JsonResponse
     {
-        $subscriberData = $this->subscriberService->list($request->get('sort', ''));
+        $subscriberData = $this->subscriberService->list(
+            (int) $request->get('size', 10),
+            $request->get('sort', '')
+        );
         $subscriberData->setCollection(
             $subscriberData->getCollection()
                 ->map(fn(Subscriber $subscriber) => SubscriberTransformer::fromModel($subscriber))

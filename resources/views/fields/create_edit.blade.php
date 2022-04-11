@@ -13,7 +13,7 @@
         <div id="app">
             <field-add-edit field-list-page-url="{{ route('fields.index') }}"
                             field-create-api="{{ route('api.fields.store') }}"
-                            field-update-api="{{ route('api.fields.update', ['field' => $field ?? 0]) }}"
+                            field-update-api="{{ route('api.fields.update', ['field' => $field->id ?? 0]) }}"
                             @if ($field) :field="window.field" @endif
             />
         </div>
@@ -23,6 +23,6 @@
 
 @section('js')
     <script>
-        window.field = @json($field?->attributesToArray(), JSON_THROW_ON_ERROR)
+        window.field = @json($field, JSON_THROW_ON_ERROR);
     </script>
 @endsection

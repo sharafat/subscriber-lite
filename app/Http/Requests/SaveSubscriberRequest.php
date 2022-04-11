@@ -44,6 +44,13 @@ class SaveSubscriberRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'fields.*.value.required_with' => __('Field is required'),
+        ];
+    }
+
     private function validateIfFieldValueConformsToFieldType(string $attribute, mixed $value, callable $fail): void
     {
         $attributeIndex = explode('.', $attribute)[1];
@@ -52,7 +59,7 @@ class SaveSubscriberRequest extends FormRequest
 
         switch ($field?->type) {
             case Field::TYPE_DATE:
-                if (!(bool)strtotime($value)) {
+                if (!(bool) strtotime($value)) {
                     $fail(__('Value must be a date.'));
                 }
                 break;

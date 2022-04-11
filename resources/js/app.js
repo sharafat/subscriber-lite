@@ -5,11 +5,13 @@ import Alpine from 'alpinejs';
 import * as Ladda from 'ladda';
 import {createApp} from 'vue';
 import SubscriberList from "./components/Subscriber/SubscriberList";
+import SubscriberAddEdit from "./components/Subscriber/SubscriberAddEdit";
 import FieldList from "./components/Field/FieldList";
 import FieldAddEdit from "./components/Field/FieldAddEdit";
 
 const components = {
     SubscriberList,
+    SubscriberAddEdit,
     FieldList,
     FieldAddEdit,
 };

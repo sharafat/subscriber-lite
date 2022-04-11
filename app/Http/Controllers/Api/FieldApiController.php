@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Transformers\FieldTransformer;
+use App\Http\Requests\ListRequest;
 use App\Http\Requests\SaveFieldRequest;
+use App\Http\Transformers\FieldTransformer;
 use App\Models\Field;
 use App\Services\FieldService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Log;
 
 class FieldApiController extends Controller
@@ -20,9 +20,12 @@ class FieldApiController extends Controller
         $this->fieldService = $fieldService;
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(ListRequest $request): JsonResponse
     {
-        $fieldData = $this->fieldService->list($request->get('sort', ''));
+        $fieldData = $this->fieldService->list(
+            (int) $request->get('size', 10),
+            $request->get('sort', '')
+        );
         $fieldData->setCollection(
             $fieldData->getCollection()->map(fn(Field $field) => FieldTransformer::fromModel($field))
         );

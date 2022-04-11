@@ -10,11 +10,11 @@ use Illuminate\Support\Collection;
 
 class SubscriberService
 {
-    public function list(string $orderBy = 'id desc'): LengthAwarePaginator
+    public function list(int $perPage = 10, string $orderBy = 'id desc'): LengthAwarePaginator
     {
         return Subscriber::with('fields')
             ->orderByRaw(!empty($orderBy) ? $orderBy : 'id desc')
-            ->paginate()
+            ->paginate($perPage)
             ->withQueryString();
     }
 

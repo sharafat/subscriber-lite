@@ -13,6 +13,7 @@
     "Field Title": "Field Title",
     "Field Type": "Field Type",
     "Field Value": "Field Value",
+    "Field is required": "Field is required",
 
     "Value must be a date.": "Value must be a date.",
     "Value must be a number.": "Value must be a number.",
