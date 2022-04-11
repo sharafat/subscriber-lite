@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', static fn() => redirect()->route('subscribers.index'))->name('home');
 
 Route::resource('subscribers', SubscriberController::class)->only(['index', 'create', 'edit']);
-Route::resource('fields', FieldController::class)->only(['index']);
+Route::resource('fields', FieldController::class)->only(['index', 'create', 'edit']);

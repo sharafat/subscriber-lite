@@ -20,7 +20,8 @@ mix.js('resources/js/app.js', 'public/js')
     ])
     .styles([
         'node_modules/@fortawesome/fontawesome-free/css/all.css',
-        'node_modules/@jobinsjp/vue3-datatable/dist/style.css'
+        'node_modules/@jobinsjp/vue3-datatable/dist/style.css',
+        'node_modules/ladda/dist/ladda-themeless.min.css',
     ], 'public/css/vendor.css')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
     .copy('resources/images', 'public/images')

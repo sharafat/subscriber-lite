@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('fields', static function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('type');
             $table->timestamps();
             $table->softDeletes();

@@ -8,6 +8,7 @@ use App\Http\Requests\SaveFieldRequest;
 use App\Models\Field;
 use App\Services\FieldService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Log;
 
 class FieldApiController extends Controller
@@ -19,9 +20,9 @@ class FieldApiController extends Controller
         $this->fieldService = $fieldService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $fieldData = $this->fieldService->list();
+        $fieldData = $this->fieldService->list($request->get('sort', ''));
         $fieldData->setCollection(
             $fieldData->getCollection()->map(fn(Field $field) => FieldTransformer::fromModel($field))
         );

@@ -15,7 +15,8 @@ class SaveFieldRequest extends FormRequest
                 'required',
                 'max:250',
                 Rule::unique('fields', 'title')
-                    ->ignore($this->route('subscriber')?->id)
+                    ->ignore($this->route('field')?->id)
+                    ->withoutTrashed()
             ],
             'type' => 'required|in:' . implode(',', Field::TYPES),
         ];

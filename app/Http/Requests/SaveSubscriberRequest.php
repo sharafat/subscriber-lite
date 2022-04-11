@@ -19,6 +19,7 @@ class SaveSubscriberRequest extends FormRequest
                 'email:rfc,dns',
                 Rule::unique('subscribers', 'email')
                     ->ignore($this->route('subscriber')?->id)
+                    ->withoutTrashed()
             ],
             'state' => 'nullable|in:' . implode(',', Subscriber::STATES),
             'fields.*.title' => 'nullable|max:250|exists:fields,title',

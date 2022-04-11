@@ -7,9 +7,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FieldService
 {
-    public function list(): LengthAwarePaginator
+    public function list(string $orderBy = 'id desc'): LengthAwarePaginator
     {
-        return Field::latest('id')->paginate()->withQueryString();
+        return Field::orderByRaw(!empty($orderBy) ? $orderBy : 'id desc')
+            ->paginate()
+            ->withQueryString();
     }
 
     public function save(Field $field): Field
