@@ -13,5 +13,16 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ])
+    .copy('node_modules/@fortawesome/fontawesome-free/css/all.css', 'public/css/fontawesome.css')
+    .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
+    .copy('resources/images', 'public/images')
+    .copy('resources/images/favicon', 'public/images/favicon')
+    .version()
+    .browserSync({
+        proxy: 'localhost',
+        open: false,
+    });

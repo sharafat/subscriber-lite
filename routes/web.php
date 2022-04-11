@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('subscribers', SubscriberController::class)->only(['index', 'create', 'edit']);
+Route::resource('fields', FieldController::class)->only(['index']);

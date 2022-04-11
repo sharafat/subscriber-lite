@@ -1,0 +1,79 @@
+:root {
+    --light: #edf2f9;
+    --dark: #152e4d;
+    --darker: #12263f;
+    --color-primary: #0d9488;
+    --color-primary-50: #f0fdfa;
+    --color-primary-100: #ccfbf1;
+    --color-primary-light: #14b8a6;
+    --color-primary-lighter: #2dd4bf;
+    --color-primary-dark: #0f766e;
+    --color-primary-darker: #115e59;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Form Inputs */
+.input-container {
+    @apply mb-2;
+}
+.input {
+    @apply shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border
+    border-gray-300 rounded-md;
+}
+.input[type='file'] {
+    @apply outline-none p-1.5;
+}
+.input-error {
+    @apply border-red-500;
+}
+.input-label {
+    @apply block text-sm font-medium text-gray-700;
+}
+.hints {
+    @apply text-xs text-gray-500 mt-1.5;
+}
+.error-msg {
+    @apply text-xs text-red-600 mt-1.5;
+}
+
+/* Buttons */
+.btn {
+    @apply font-bold py-2 px-4 rounded;
+}
+.btn-icon {
+    padding: .5rem;
+    border-radius: 50%;
+}
+.btn-primary {
+    @apply bg-blue-500 text-white;
+}
+.btn-primary:hover {
+    @apply bg-blue-700;
+}
+.btn-secondary {
+    @apply bg-gray-500 text-white;
+}
+.btn-secondary:hover {
+    @apply bg-gray-700;
+}
+.btn-warning {
+    @apply bg-yellow-500 text-white;
+}
+.btn-warning:hover {
+    @apply bg-yellow-700;
+}
+.btn-danger {
+    @apply bg-red-500 text-white;
+}
+.btn-danger:hover {
+    @apply bg-red-700;
+}
+.btn-success {
+    @apply bg-green-500 text-white;
+}
+.btn-success:hover {
+    @apply bg-green-700;
+}

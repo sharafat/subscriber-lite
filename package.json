@@ -1,18 +1,28 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
+        "dev": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "prod": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.25",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "browser-sync": "^2.27.9",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "laravel-mix": "^6.0.43",
+        "postcss": "^8.4.12",
+        "postcss-import": "^14.1.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.1.1",
+        "@tailwindcss/forms": "^0.5.0",
+        "alpinejs": "^3.9.6",
+        "autoprefixer": "10.4.4",
+        "axios": "^0.26.1",
+        "lodash": "^4.17.21",
+        "sweetalert2": "^11.4.8",
+        "tailwindcss": "^3.0.23",
+        "vue": "^3.2.31"
     }
 }
