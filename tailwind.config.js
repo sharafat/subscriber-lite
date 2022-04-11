@@ -1,10 +1,18 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 module.exports = {
     content: [
+        './resources/views/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
+    ],
+    safelist: [
+        {
+            pattern: /./
+        },
     ],
 
     theme: {
@@ -22,6 +30,9 @@ module.exports = {
                     50: 'var(--color-primary-50)',
                     100: 'var(--color-primary-100)',
                 },
+                green: colors.emerald,
+                yellow: colors.amber,
+                purple: colors.violet,
             }
         },
     },

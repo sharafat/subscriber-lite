@@ -12,10 +12,12 @@
         "browser-sync-webpack-plugin": "^2.3.0",
         "laravel-mix": "^6.0.43",
         "postcss": "^8.4.12",
-        "postcss-import": "^14.1.0"
+        "postcss-import": "^14.1.0",
+        "vue-loader": "^16.8.3"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.1.1",
+        "@jobinsjp/vue3-datatable": "^1.0.15",
         "@tailwindcss/forms": "^0.5.0",
         "alpinejs": "^3.9.6",
         "autoprefixer": "10.4.4",

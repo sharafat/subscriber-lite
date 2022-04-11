@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Home')
+@section('title', __('Subscribers'))
 
 @section('css')
     <style>
@@ -10,7 +10,10 @@
 @section('content')
     <div>
 
-        Hello World
+        <div id="app">
+            <subscriber-list subscriber-list-api="{{ route('api.subscribers.index') }}">
+            </subscriber-list>
+        </div>
 
     </div>
 @endsection

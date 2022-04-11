@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
 use App\Services\SubscriberService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 
 class SubscriberController extends Controller
@@ -15,9 +16,9 @@ class SubscriberController extends Controller
         $this->subscriberService = $subscriberService;
     }
 
-    public function index(): ?Response
+    public function index(): View
     {
-        return null;
+        return view('subscribers.index');
     }
 
     public function create(): ?Response

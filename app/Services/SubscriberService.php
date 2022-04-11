@@ -10,9 +10,12 @@ use Illuminate\Support\Collection;
 
 class SubscriberService
 {
-    public function list(): LengthAwarePaginator
+    public function list(string $orderBy = 'id desc'): LengthAwarePaginator
     {
-        return Subscriber::with('fields')->latest('id')->paginate()->withQueryString();
+        return Subscriber::with('fields')
+            ->orderByRaw(!empty($orderBy) ? $orderBy : 'id desc')
+            ->paginate()
+            ->withQueryString();
     }
 
     public function save(Subscriber $subscriber, Collection $fieldsFromRequestParams): Subscriber

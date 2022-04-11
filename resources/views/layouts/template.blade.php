@@ -21,7 +21,7 @@
     <link rel="manifest" href="{{ asset(mix('images/favicon/site.webmanifest')) }}"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset(mix('/css/fontawesome.css')) }}"/>
+    <link rel="stylesheet" href="{{ asset(mix('/css/vendor.css')) }}"/>
     <link rel="stylesheet" href="{{ asset(mix('/css/app.css')) }}"/>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;900&display=swap"
           rel="stylesheet"/>

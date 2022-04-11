@@ -12,12 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .vue()
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
         require('autoprefixer'),
     ])
-    .copy('node_modules/@fortawesome/fontawesome-free/css/all.css', 'public/css/fontawesome.css')
+    .styles([
+        'node_modules/@fortawesome/fontawesome-free/css/all.css',
+        'node_modules/@jobinsjp/vue3-datatable/dist/style.css'
+    ], 'public/css/vendor.css')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
     .copy('resources/images', 'public/images')
     .copy('resources/images/favicon', 'public/images/favicon')

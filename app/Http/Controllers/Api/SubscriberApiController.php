@@ -8,6 +8,7 @@ use App\Http\Requests\SaveSubscriberRequest;
 use App\Models\Subscriber;
 use App\Services\SubscriberService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Log;
 
 class SubscriberApiController extends Controller
@@ -19,11 +20,12 @@ class SubscriberApiController extends Controller
         $this->subscriberService = $subscriberService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $subscriberData = $this->subscriberService->list();
+        $subscriberData = $this->subscriberService->list($request->get('sort', ''));
         $subscriberData->setCollection(
-            $subscriberData->getCollection()->map(fn(Subscriber $subscriber) => SubscriberTransformer::fromModel($subscriber))
+            $subscriberData->getCollection()
+                ->map(fn(Subscriber $subscriber) => SubscriberTransformer::fromModel($subscriber))
         );
 
         return response()->json($subscriberData);
