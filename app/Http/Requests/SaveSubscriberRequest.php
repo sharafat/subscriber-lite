@@ -25,7 +25,7 @@ class SaveSubscriberRequest extends FormRequest
             'fields.*.title' => 'nullable|max:250|exists:fields,title',
             'fields.*.value' => [
                 function ($attribute, $value, $fail) {
-                    $this->validateIfFieldValueConformsToFieldType($attribute, $value, $fail);
+                    $this->validateCustomField($attribute, $value, $fail);
                 }
             ],
         ];
@@ -43,47 +43,20 @@ class SaveSubscriberRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'fields.*.value.required_with' => __('Field is required'),
-        ];
-    }
-
-    private function validateIfFieldValueConformsToFieldType(string $attribute, mixed $value, callable $fail): void
+    private function validateCustomField(string $attribute, mixed $value, callable $fail): void
     {
         $attributeIndex = explode('.', $attribute)[1];
         $fieldTitle = $this->input("fields.$attributeIndex.title");
         $field = Field::where('title', $fieldTitle)->first();
 
-        if ($field?->required && !$value) {
-            $fail(__('Field is required.'));
-
+        if (!$field) {
             return;
         }
 
-        switch ($field?->type) {
-            case Field::TYPE_DATE:
-                if (!(bool) strtotime($value)) {
-                    $fail(__('Value must be a date.'));
-                }
-                break;
-            case Field::TYPE_NUMBER:
-                if (!is_numeric($value)) {
-                    $fail(__('Value must be a number.'));
-                }
-                break;
-            case Field::TYPE_BOOLEAN:
-                if (!in_array($value, [true, false, 0, 1], false)) {
-                    $fail(__('Value must be a boolean.'));
-                }
-                break;
-            case Field::TYPE_STRING:
-                $maxLength = 250;
-                if (strlen($value) > $maxLength) {
-                    $fail(__('Length cannot be greater than :maxlength.', ['maxlength' => $maxLength]));
-                }
-                break;
+        $validationError = $field->validate($value);
+
+        if ($validationError) {
+            $fail($validationError);
         }
     }
 }
