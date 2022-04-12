@@ -49,7 +49,11 @@ Also, for the same reason, multi-user scenario has been ignored.</i>
     ```bash
     cd subscriber-lite
     ```
-4. Install composer dependencies using docker to install Sail:
+4. Create `.env` file from `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+5. Install composer dependencies using docker to install Sail:
     ```bash
     docker run --rm \
         -u "$(id -u):$(id -g)" \
@@ -58,25 +62,21 @@ Also, for the same reason, multi-user scenario has been ignored.</i>
         laravelsail/php81-composer:latest \
         composer install --ignore-platform-reqs
     ```
-5. Create `.env` file from `.env.example`:
-    ```bash
-   cp .env.example .env
-   ```
 6. Fire up Docker containers in the background:
    ```bash
    ./vendor/bin/sail up -d
    ```
 7. Enjoy a cup of coffee while your machine is working hard. 😊
-8. Install Javascript dependencies and build front-end:
-    ```bash
-    ./vendor/bin/sail npm install
-    ./vendor/bin/sail npm run dev
-    ```
-9. Run database migrations and populate database with seed data:
+8. Run database migrations and populate database with seed data:
     ```bash
     ./vendor/bin/sail artisan migrate
     ./vendor/bin/sail artisan db:seed
     ```
+9. Install Javascript dependencies and build front-end:
+   ```bash
+   ./vendor/bin/sail npm install
+   ./vendor/bin/sail npm run dev
+   ```
 10. Browse [http://localhost/](http://localhost/)
 
 ### Run Tests
