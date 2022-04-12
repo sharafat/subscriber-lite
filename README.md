@@ -1,64 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<h1 align="center">
+    <img src="https://raw.githubusercontent.com/sharafat/subscriber-lite/main/resources/images/logo.png" width="100">
+    <br/>
+    Subscriber Lite
+</h1>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## About
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This repository contains a simple Laravel-Vue.js application built with the purpose of demonstrating many of
+Laravel and Vue.js features.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The Subscriber Lite application aims to simplify maintaining the subscribers list of your awesome newsletter.
+Along with your subscriber's basic information such as name and email, Subscriber Lite allows you to create custom
+fields for collecting more information from your subscribers. You can also specify the type of a custom field
+(<i>string, number, date, boolean</i>), as well as indicate if the field is required to be filled-up.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The tech stack used to build this application is:
 
-## Learning Laravel
+- PHP 8
+- Laravel 9
+- MySQL 8
+- Vue.js 3
+- Tailwind CSS 3
+- Alpine.js 3 (only to make the HTML template mobile-responsive)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Feature showcases:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- HTTP JSON API
+- Request validation
+- Eloquent ORM and model relationships/associations
+- Database migration and seeding
+- Feature tests
+- PSR-2/PSR-12 compliance of source code
 
-## Laravel Sponsors
+<i><b>Note:</b> To keep things really simple and short, authentication and authorization have been avoided.
+Also, for the same reason, multi-user scenario has been ignored.</i>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Setup and Run
 
-### Premium Partners
+1. Make sure Docker is installed on the system. Installation instructions can be found at
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) (for Mac OS) and
+[Docker Compose](https://docs.docker.com/compose/install/) (for Linux).
+2. Clone the git repository:
+    ```bash
+    git clone https://github.com/sharafat/subscriber-lite.git
+    ```
+3. Navigate to the application directory:
+    ```bash
+    cd subscriber-lite
+    ```
+4. Install composer dependencies using docker to install Sail:
+    ```bash
+    docker run --rm \
+        -u "$(id -u):$(id -g)" \
+        -v $(pwd):/var/www/html \
+        -w /var/www/html \
+        laravelsail/php81-composer:latest \
+        composer install --ignore-platform-reqs
+    ```
+5. Create `.env` file from `.env.example`:
+    ```bash
+   cp .env.example .env
+   ```
+6. Fire up Docker containers in the background:
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+7. Enjoy a cup of coffee while your machine is working hard. 😊
+8. Install Javascript dependencies and build front-end:
+    ```bash
+    ./vendor/bin/sail npm install
+    ./vendor/bin/sail npm run dev
+    ```
+9. Run database migrations and populate database with seed data:
+    ```bash
+    ./vendor/bin/sail artisan migrate
+    ./vendor/bin/sail artisan db:seed
+    ```
+10. Browse [http://localhost/](http://localhost/)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Run Tests
 
-## Contributing
+To run PHP test cases, execute:
+```bash
+./vendor/bin/sail test
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Demo
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+![](https://i.imgur.com/ACLlXn9.png)
+<p align="center">Subscriber List Page</p>
+<br/>
 
-## Security Vulnerabilities
+![](https://i.imgur.com/SZTNj3D.png)
+<p align="center">Subscriber Add/Edit Page</p>
+<br/>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![](https://i.imgur.com/J3A9B1g.png)
+<p align="center">Custom Field List Page</p>
+<br/>
 
-## License
+![](https://i.imgur.com/6wBD4ZC.png)
+<p align="center">Custom Field Add/Edit Page</p>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Contact
+
+If you have questions/comments, please drop me a line at [sharafat_8271@yahoo.co.uk](mailto:sharafat_8271@yahoo.co.uk).
