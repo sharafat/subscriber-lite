@@ -24,6 +24,11 @@
                         @sorting="sorting">
                 Type
             </table-head>
+            <table-head sortable="required"
+                        :sort="sort"
+                        @sorting="sorting">
+                Required
+            </table-head>
             <table-head>
                 Actions
             </table-head>
@@ -33,6 +38,7 @@
             <table-body v-text="row.id"/>
             <table-body v-text="row.title"/>
             <table-body v-text="row.type" class="type"/>
+            <table-body v-text="row.required ? 'Yes' : 'No'"/>
             <table-body>
                 <button class="btn-icon btn-icon-primary"
                         @click="navigateToEditPage(row.id)">

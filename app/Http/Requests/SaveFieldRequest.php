@@ -19,6 +19,7 @@ class SaveFieldRequest extends FormRequest
                     ->withoutTrashed()
             ],
             'type' => 'required|in:' . implode(',', Field::TYPES),
+            'required' => 'present|bool',
         ];
     }
 
@@ -27,6 +28,7 @@ class SaveFieldRequest extends FormRequest
         return [
             'title' => __('Title'),
             'type' => __('Type'),
+            'required' => __('Required'),
         ];
     }
 }

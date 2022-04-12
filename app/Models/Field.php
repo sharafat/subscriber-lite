@@ -36,7 +36,7 @@ class Field extends Model
         return (string) match ($this->type) {
             self::TYPE_NUMBER => $faker->randomDigit(),
             self::TYPE_DATE => $faker->date(),
-            self::TYPE_BOOLEAN => $faker->boolean() ? 'true' : 'false',
+            self::TYPE_BOOLEAN => $this->required ? 1 : 0,
             default => $faker->sentence(3),
         };
     }

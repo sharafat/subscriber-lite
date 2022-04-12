@@ -24,7 +24,6 @@ class SaveSubscriberRequest extends FormRequest
             'state' => 'nullable|in:' . implode(',', Subscriber::STATES),
             'fields.*.title' => 'nullable|max:250|exists:fields,title',
             'fields.*.value' => [
-                'required_with:fields.*.title',
                 function ($attribute, $value, $fail) {
                     $this->validateIfFieldValueConformsToFieldType($attribute, $value, $fail);
                 }
@@ -56,6 +55,12 @@ class SaveSubscriberRequest extends FormRequest
         $attributeIndex = explode('.', $attribute)[1];
         $fieldTitle = $this->input("fields.$attributeIndex.title");
         $field = Field::where('title', $fieldTitle)->first();
+
+        if ($field?->required && !$value) {
+            $fail(__('Field is required.'));
+
+            return;
+        }
 
         switch ($field?->type) {
             case Field::TYPE_DATE:

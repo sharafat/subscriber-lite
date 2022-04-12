@@ -50,14 +50,21 @@ class SubscriberService
 
         $fields = Field::whereIn('title', $fieldsFromRequestParams->map(fn(array $field) => $field['title']))->get();
         foreach ($fields as $field) {
-            $fieldsForAttaching->put(
-                $field->id,
-                [
-                    'value' => $fieldsFromRequestParams->filter(
-                        fn($fieldParam) => $fieldParam['title'] === $field->title
-                    )->first()['value']
-                ]
-            );
+            $submittedFieldValue = $fieldsFromRequestParams->filter(
+                fn($fieldParam) => $fieldParam['title'] === $field->title
+            )->first()['value'];
+
+            // For boolean fields, value will be null; therefore, set value to whether the field is required
+            if ($field->type === Field::TYPE_BOOLEAN) {
+                $submittedFieldValue = $field->required ? 1 : 0;
+            }
+
+            // For non-required fields, if value is null, replace it with empty string
+            if (!$field->required && $submittedFieldValue === null) {
+                $submittedFieldValue = '';
+            }
+
+            $fieldsForAttaching->put($field->id, ['value' => $submittedFieldValue]);
         }
 
         return $fieldsForAttaching;

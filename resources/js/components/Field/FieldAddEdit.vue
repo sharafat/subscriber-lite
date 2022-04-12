@@ -32,6 +32,16 @@
                     <div class="error-msg">{{ errors.type }}</div>
                 </div>
 
+                <div class="input-container">
+                    <label for="required" class="input-label">
+                        <input type="checkbox" id="required" class="mr-2"
+                               v-bind:class="{ 'input-error': errors.required ?? false }"
+                               v-model="field.required"/>
+                        Required
+                    </label>
+                    <div class="error-msg">{{ errors.required }}</div>
+                </div>
+
             </div>
 
             <div class="px-4 py-3 bg-gray-50 sm:px-6">
@@ -68,6 +78,7 @@ export default {
                 id: null,
                 title: null,
                 type: 'string',
+                required: false,
             }
         }
     },
@@ -80,9 +91,17 @@ export default {
         const errors = ref({
             title: null,
             type: null,
+            required: null,
         })
 
         const submit = () => {
+            // Clear errors
+            errors.value = {
+                title: null,
+                type: null,
+                required: null,
+            }
+
             const fieldData = field.value
             axios({
                 method: fieldData.id ? 'put' : 'post',
@@ -102,9 +121,12 @@ export default {
                         errors.value = {
                             title: 'title' in errorData ? errorData.title[0] : null,
                             type: 'type' in errorData ? errorData.type[0] : null,
+                            required: 'required' in errorData ? errorData.required[0] : null,
                         }
 
                         window.Swal.fire('', 'Please correct the errors specified on the form.', 'error')
+
+                        return
                     }
                 }
 

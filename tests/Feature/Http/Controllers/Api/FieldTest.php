@@ -40,9 +40,10 @@ class FieldTest extends TestCase
 
         $response->assertUnprocessable()
             ->assertJson(
-                fn(AssertableJson $json) => $json->has('errors', 2)
+                fn(AssertableJson $json) => $json->has('errors', 3)
                     ->has('errors.title')
                     ->has('errors.type')
+                    ->has('errors.required')
                     ->etc()
             );
     }

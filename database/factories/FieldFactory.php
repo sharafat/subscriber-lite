@@ -20,6 +20,7 @@ class FieldFactory extends Factory
         return [
             'title' => $this->faker->unique()->sentence(3),
             'type' => $this->faker->randomElement(Field::TYPES),
+            'required' => $this->faker->boolean(),
         ];
     }
 
